@@ -34,7 +34,7 @@ namespace BBAchievements
             if (textMesh == null)
                 return;
             textMesh.autoSizeTextContainer = true;
-            textMesh.text = Achievement.All.Where(x => x.unlocked).Count() + "/" + Achievement.All.Count();
+            textMesh.text = Achievement.All.Where(x => x.Unlocked).Count() + "/" + Achievement.All.Count();
         }
         private void ShowAchievements()
         {
@@ -65,19 +65,22 @@ namespace BBAchievements
             currentIndex = 0;
             CreateButton(() =>
             {
-                ChangeIndex(true);
+                ChangeIndex(false);
                 ShowAchievements();
             }, BasePlugin.AssetManager.Get<Sprite>("MenuArrowSheet_2"), BasePlugin.AssetManager.Get<Sprite>("MenuArrowSheet_0"), "ArrowUp", new Vector3(130, 50, 0)).transform.rotation = Quaternion.Euler(0, 0, 270);
             CreateButton(() =>
             {
-                ChangeIndex(false);
+                ChangeIndex(true);
                 ShowAchievements();
             }, BasePlugin.AssetManager.Get<Sprite>("MenuArrowSheet_2"), BasePlugin.AssetManager.Get<Sprite>("MenuArrowSheet_0"), "ArrowUp", new Vector3(130, -130, 0)).transform.rotation = Quaternion.Euler(0, 0, 90);
             int index = 0;
             textMesh = CreateText("AchievementsCounter", "", new Vector3(136, -160, 0), BaldiFonts.ComicSans24, TextAlignmentOptions.Right, Vector2.one, Color.black);
-            foreach (Achievement achievement in Achievement.All.Where(x => !x.hide))
+            foreach (Achievement achievement in Achievement.All)
             {
-                StandardMenuButton text = CreateTextButton(() => { }, achievement.nameKey, LocalizationManager.Instance.GetLocalizedText(achievement.nameKey), new Vector3(-80, y[index], 0), BaldiFonts.ComicSans18,
+                string name = LocalizationManager.Instance.GetLocalizedText(achievement.nameKey);
+                if (!achievement.Unlocked && achievement.Hide)
+                    name = LocalizationManager.Instance.GetLocalizedText("BBA_Secret");
+                StandardMenuButton text = CreateTextButton(() => { }, achievement.nameKey, name, new Vector3(-80, y[index], 0), BaldiFonts.ComicSans18,
                     TMPro.TextAlignmentOptions.Left, Vector2.one, new Color(0, 0, 0, 0.5f));
                 StandardMenuButton reset = CreateButton(() => { 
                     achievement.Reset(); 
@@ -85,8 +88,8 @@ namespace BBAchievements
                     UpdateText();
                 }, BasePlugin.AssetManager.Get<Sprite>("BackArrow1"), BasePlugin.AssetManager.Get<Sprite>("BackArrow2"), "Reset", new Vector3(90, y[index], 0));
                 text.text.autoSizeTextContainer = true;
-                string desc = LocalizationManager.Instance.GetLocalizedText(achievement.description) + "\nMod: " + achievement.GUID;
-                if (achievement.unlocked)
+                string desc = LocalizationManager.Instance.GetLocalizedText(achievement.Description) + "\nMod: " + achievement.GUID;
+                if (achievement.Unlocked)
                 {
                     text.text.color = new Color(0, 0, 0, 1);
                 }
@@ -96,6 +99,8 @@ namespace BBAchievements
                     text = text,
                 });
                 AddTooltip(reset, "BBA_Reset");
+                if (!achievement.Unlocked && achievement.Hide)
+                    desc = LocalizationManager.Instance.GetLocalizedText("BBA_Secret_Desc");
                 AddTooltip(text, desc);
                 index++;
                 if (index >= 5)

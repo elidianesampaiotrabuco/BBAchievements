@@ -13,6 +13,8 @@ namespace BBAchievements
         [JsonIgnore]
         public static Achievement[] All => cache.Values.ToArray();
         [JsonIgnore]
+        private SoundObject unlockSound;
+        [JsonIgnore]
         public bool CheckForKeyCheats { get; private set; }
         [JsonIgnore]
         public bool CheckForUnityExplorer { get; private set; }
@@ -25,11 +27,11 @@ namespace BBAchievements
         [JsonIgnore]
         private static Dictionary<string, Achievement> cache;
         [JsonIgnore]
-        public bool unlocked;
+        public bool Unlocked { get; private set; }
         [JsonIgnore]
-        public bool hide;
+        public bool Hide { get; private set; }
         [JsonIgnore]
-        public string description;
+        public string Description { get; private set; }
         [JsonIgnore]
         public DateTime Date
         {
@@ -56,7 +58,7 @@ namespace BBAchievements
         private Achievement() { }
         public void Reset()
         {
-            unlocked = false;
+            Unlocked = false;
             Date = DateTime.MinValue;
             if (SaveFile.Instance.achievements.ContainsKey(PlayerFileManager.Instance.fileName))
             {
@@ -74,15 +76,24 @@ namespace BBAchievements
                 return;
             if (Chainloader.PluginInfos.Keys.ToList().Exists(x => NotAllowedMods.Contains(x)))
                 return;
-            if (unlocked)
+            if (Unlocked)
                 return;
             HUDPatches.AddToQueue(this);
-            unlocked = true;
+            Unlocked = true;
             Date = DateTime.Now;
             if (!SaveFile.Instance.achievements.ContainsKey(PlayerFileManager.Instance.fileName))
                 SaveFile.Instance.achievements.Add(PlayerFileManager.Instance.fileName, new List<Achievement>());
             SaveFile.Instance.achievements[PlayerFileManager.Instance.fileName].Add(this);
             SaveFile.Instance.Save();
+        }
+        public void PlaySound()
+        {
+            if (unlockSound != null)
+            {
+                CoreGameManager.Instance?.audMan?.PlaySingle(unlockSound);
+                return;
+            }
+            CoreGameManager.Instance?.audMan?.PlaySingle(BasePlugin.AssetManager.Get<SoundObject>("WOW"));
         }
         public void Anticheat(bool checkForPineDebug = true, bool checkForCheatKeys = true, bool checkForUnityExplorer = true, params string[] notAllowedMod)
         {
@@ -91,9 +102,22 @@ namespace BBAchievements
             CheckForUnityExplorer = checkForUnityExplorer;
             NotAllowedMods = notAllowedMod;
         }
+        public static bool TryGet(string name, out Achievement result)
+        {
+            try
+            {
+                result = Get(name);
+                return true;
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+        }
         public static Achievement Get(string name) => cache[name];
         public static bool Exists(string name) => cache.ContainsKey(name);
-        public static Achievement Create(PluginInfo info, string name, string description, bool hide = false)
+        public static Achievement Create(PluginInfo info, string name, string description, bool hide = false, SoundObject sound = null)
         {
             cache ??= new Dictionary<string, Achievement>();
             if (cache.TryGetValue(name, out Achievement achievement)) {
@@ -103,20 +127,21 @@ namespace BBAchievements
 
             achievement = new Achievement()
             {
-                description = description,
+                Description = description,
                 nameKey = name,
-                hide = hide,
-                unlocked = false,
+                Hide = hide,
+                Unlocked = false,
                 GUID = info.Metadata.GUID,
                 NotAllowedMods = new string[] { },
                 CheckForKeyCheats = false,
                 CheckForPineDebug = false,
                 CheckForUnityExplorer = false,
+                unlockSound = sound
             };
             if (!SaveFile.Instance.achievements.ContainsKey(PlayerFileManager.Instance.fileName))
                 SaveFile.Instance.achievements.Add(PlayerFileManager.Instance.fileName, new List<Achievement>());
             if (SaveFile.Instance.achievements[PlayerFileManager.Instance.fileName].Exists(x => x.nameKey == name))
-                achievement.unlocked = true;
+                achievement.Unlocked = true;
             cache.Add(name, achievement);
             return achievement;
         }

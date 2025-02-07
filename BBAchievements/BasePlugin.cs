@@ -6,6 +6,7 @@ using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.OptionsAPI;
 using MTM101BaldAPI.Registers;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
 
 namespace BBAchievements
@@ -32,10 +33,19 @@ namespace BBAchievements
             new SaveFile().Initialize().Update();
             yield return "Creating achievements...";
             Achievement.Create(Info, "BBA_VictorySong", "BBA_VictorySong_Desc");
-            Achievement.Create(Info, "BBA_NotBBCR", "BBA_NotBBCR_Desc");
             Achievement.Create(Info, "BBA_99Seconds", "BBA_99Seconds_Desc");
             Achievement.Create(Info, "BBA_StealthPerfection1", "BBA_StealthPerfection1_Desc");
             Achievement.Create(Info, "BBA_StealthPerfection2", "BBA_StealthPerfection2_Desc");
+
+            if (typeof(CoreGameManager).GetField("mapChallenge", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static) != null)
+                Achievement.Create(Info, "BBA_NotBBCR", "BBA_NotBBCR_Desc");
+
+            Achievement.Create(Info, "BBA_ReflexTest", "BBA_ReflexTest_Desc");
+            Achievement.Create(Info, "BBA_HelloViewers", "BBA_HelloViewers_Desc", true);
+            Achievement.Create(Info, "BBA_Multitask", "BBA_Multitask_Desc");
+            Achievement.Create(Info, "BBA_FullSet", "BBA_FullSet_Desc");
+            Achievement.Create(Info, "BBA_Collector", "BBA_Collector_Desc");
+            Achievement.Create(Info, "BBA_Disappearance", "BBA_Disappearance_Desc");
         }
         private void Awake()
         {

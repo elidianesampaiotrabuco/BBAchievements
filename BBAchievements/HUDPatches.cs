@@ -128,7 +128,7 @@ namespace BBAchievements
         }
         private static void Show(Achievement achievement)
         {
-            CoreGameManager.Instance?.audMan?.PlaySingle(BasePlugin.AssetManager.Get<SoundObject>("WOW"));
+            achievement.PlaySound();
             queue.Remove(achievement);
             if (textMeshProUGUI != null)
             {
