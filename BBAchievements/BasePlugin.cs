@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace BBAchievements
 {
-    [BepInPlugin("rost.moment.baldiplus.achievements", "Baldi Basics Plus Achievements", "0.1")]
+    [BepInPlugin("rost.moment.baldiplus.achievements", "Baldi Basics Plus Achievements", "0.2")]
     public class BasePlugin : BaseUnityPlugin
     {
         public static ManualLogSource logger = BepInEx.Logging.Logger.CreateLogSource("Baldi Basics Plus Achievements");
