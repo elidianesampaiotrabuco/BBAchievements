@@ -11,10 +11,10 @@ using UnityEngine;
 
 namespace BBAchievements
 {
-    [BepInPlugin("rost.moment.baldiplus.achievements", "Baldi Basics Plus Achievements", "0.2")]
+    [BepInPlugin("starrie.rost.bbplus.achievements", "Baldi's Basics Plus Achievements", "0.3")]
     public class BasePlugin : BaseUnityPlugin
     {
-        public static ManualLogSource logger = BepInEx.Logging.Logger.CreateLogSource("Baldi Basics Plus Achievements");
+        public static ManualLogSource logger = BepInEx.Logging.Logger.CreateLogSource("Baldi's Basics Plus Achievements");
         public static BasePlugin Instance { get; private set; }
         public static AssetManager AssetManager { get; private set; }
         public static string ModPath => AssetLoader.GetModPath(Instance) + "/";
@@ -57,7 +57,7 @@ namespace BBAchievements
             }
             AssetManager = new AssetManager();
             AssetLoader.LoadLocalizationFolder(ModPath, Language.English);
-            LoadingEvents.RegisterOnAssetsLoaded(Info, Load(), false);
+            LoadingEvents.RegisterOnAssetsLoaded(Info, Load(), LoadingEventOrder.Pre);
             CustomOptionsCore.OnMenuInitialize += (x, y) =>
             {
                 y.AddCategory<AchievementCategory>("Achievements");

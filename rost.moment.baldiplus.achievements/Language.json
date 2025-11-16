@@ -1,0 +1,112 @@
+{
+  "items": [
+    {
+      "key": "BBA_MODGuid",
+      "value": "Mod: "
+    },
+    {
+      "key": "BBA_Reset",
+      "value": "Resets achievement, makes it locked"
+    },
+    {
+      "key": "BBA_UnlockDate",
+      "value": "Unlock date: "
+    },
+    {
+      "key": "BBA_Secret",
+      "value": "Secret"
+    },
+    {
+      "key": "BBA_Secret_Desc",
+      "value": "This is secret... try do something for unlocking it..."
+    },
+    {
+      "key": "BBA_VictorySong",
+      "value": "Victory Song"
+    },
+    {
+      "key": "BBA_VictorySong_Desc",
+      "value": "Beat the game once"
+    },
+    {
+      "key": "BBA_NotBBCR",
+      "value": "This game is not BBCR"
+    },
+    {
+      "key": "BBA_NotBBCR_Desc",
+      "value": "Beat the game with all settings (1 Minute Limit, No Map, Shrinking Inventory)"
+    },
+    {
+      "key": "BBA_99Seconds",
+      "value": "99"
+    },
+    {
+      "key": "BBA_99Seconds_Desc",
+      "value": "Get deteniton for 99 seconds"
+    },
+    {
+      "key": "BBA_StealthPerfection1",
+      "value": "Stealth perfection I"
+    },
+    {
+      "key": "BBA_StealthPerfection1_Desc",
+      "value": "Beat the game without Baldi seeing you once"
+    },
+    {
+      "key": "BBA_StealthPerfection2",
+      "value": "Stealth perfection II"
+    },
+    {
+      "key": "BBA_StealthPerfection2_Desc",
+      "value": "Beat the game without Baldi seeing or hearing you once"
+    },
+    {
+      "key": "BBA_ReflexTest",
+      "value": "Reflex Tested Test' Reflex"
+    },
+    {
+      "key": "BBA_ReflexTest_Desc",
+      "value": "Force Doctor Reflex to squish The Test"
+    },
+    {
+      "key": "BBA_HelloViewers",
+      "value": "Hello Viewers!"
+    },
+    {
+      "key": "BBA_HelloViewers_Desc",
+      "value": "Told about mod to viewers XD\nRecord game with obs (or other programm)"
+    },
+    {
+      "key": "BBA_Multitask",
+      "value": "Multitasking"
+    },
+    {
+      "key": "BBA_Multitask_Desc",
+      "value": "Cut Beans' gum and Playtime's rope with the same pair of safety scissors"
+    },
+    {
+      "key": "BBA_FullSet",
+      "value": "Full Set"
+    },
+    {
+      "key": "BBA_FullSet_Desc",
+      "value": "Collect all not modded items in one game"
+    },
+    {
+      "key": "BBA_Collector",
+      "value": "Collector"
+    },
+    {
+      "key": "BBA_Collector_Desc",
+      "value": "Complete the game with a full inventory of items"
+    },
+    {
+      "key": "BBA_Disappearance",
+      "value": "Disappearance Of Player"
+    },
+    {
+      "key": "BBA_Disappearance_Desc",
+      "value": "\"Everything that I protected turned out to be a delusion in the end\"\nBecome invisible somehow"
+    }
+  ]
+}

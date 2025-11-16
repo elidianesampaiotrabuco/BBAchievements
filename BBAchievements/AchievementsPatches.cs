@@ -22,7 +22,7 @@ namespace BBAchievements
                 { "BBA_StealthPerfection2", true }
             };
         }
-        [HarmonyPatch(typeof(PlayerManager), "SetInvisible")]
+        [HarmonyPatch(typeof(PlayerManager), "SetHidden")]
         [HarmonyPostfix]
         private static void InvisibleAchievement(bool value)
         {
